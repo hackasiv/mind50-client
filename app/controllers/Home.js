@@ -121,6 +121,7 @@ app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
             var lon = cords['lon'];
             $scope.getUid(function(){
                 $http.post(API_URL + '/position', {uid: $rootScope.uid, lat: lat, lon: lon}).success(function(resp){
+                    console.log(resp, 'postPosition');
                     $rootScope.total = resp.total;
                 });
             });
