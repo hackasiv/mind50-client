@@ -74,7 +74,8 @@ app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
 
                 var options = {
                   title: "Введите ваше имя",
-                  defaultText: ""
+                  defaultText: "",
+                  buttonLabels: ["OK", "Cancel"]
                 };
 
                 supersonic.ui.dialog.prompt("Введите ваше имя", options).then(function(result) {
