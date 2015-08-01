@@ -115,16 +115,16 @@ app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
 
 
     $scope.postPosition = function() {
-
-        $scope.getPosition(function(cords){
-            var lat = cords['lat'];
-            var lon = cords['lon'];
-            $scope.getUid(function(){
+        $scope.getUid(function(){
+            $scope.getPosition(function(cords){
+                var lat = cords['lat'];
+                var lon = cords['lon'];
+                console.log(cords, 'postPosition');
                 $http.post(API_URL + '/position', {uid: $rootScope.uid, lat: lat, lon: lon}).success(function(resp){
-                    console.log(resp, 'postPosition');
+                    console.log(resp);
                     $rootScope.total = resp.total;
                 });
-            });
+            })
         });
     };
 
