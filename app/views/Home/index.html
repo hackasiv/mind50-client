@@ -1,8 +1,7 @@
 <div ng-controller="AppController" id="Home">
 
 <super-navbar>
-    <super-navbar-title ng-hide="!total">Вас окружает {{ total }} существ</super-navbar-title>
-    <super-navbar-title ng-show="!total">одиночество...</super-navbar-title>
+    <super-navbar-title></super-navbar-title>
 </super-navbar>
 <div class="messages-wrap">
     <div ng-repeat="message in messages">
