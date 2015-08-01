@@ -1,37 +1,32 @@
 <div ng-controller="HomeCtrl" id="Home">
+  <super-navbar>
+    <super-navbar-title>
+      Ef  dfdf sfsfsfs!
+    </super-navbar-title>
+  </super-navbar>
 
-<div id="card3" ng-click="card3Tap()">
-<div class="card">
-  <div class="item item-text-wrap">
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  <div id="card3" ng-click="card3Tap()">
+    <div class="card">
+      <div class="message-title">UserNick</div>
+      <div class="item item-text-wrap">
+        Привет мир! Это типа первое сообщение!
+      </div>
+    </div>
   </div>
-</div>
 
-</div>
-
-<div id="card3" ng-click="card3Tap()">
-<div class="card">
-  <div class="item item-text-wrap">
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  <div id="text_field_with_stacked_label1" ng-click="text_field_with_stacked_label1Tap()">
+    <div class="list">
+      <label class="item item-input item-stacked-label">
+        <input type="text" placeholder="Введите сообщение" ng-model="text_field_with_stacked_label1.value">
+      </label>
+    </div>
   </div>
-</div>
 
-</div>
+  <div id="button2" ng-click="button2Tap()">
+    <button class="button button-positive">
+      Отправить
+    </button>
+  </div>
 
-<div id="text_field_with_stacked_label1" ng-click="text_field_with_stacked_label1Tap()">
-<div class="list">
-  <label class="item item-input item-stacked-label">
-    <span class="input-label">My Title</span>
-    <input type="text" placeholder="Type here" ng-model="text_field_with_stacked_label1.value">
-  </label>
-</div>
-
-</div>
-
-<div id="button2" ng-click="button2Tap()">
-<button class="button button-positive">
-  My Button
-</button>
-</div>
 
 </div>
