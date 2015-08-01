@@ -1,0 +1,21 @@
+
+      body, html {
+        background-color: #ffffff !important;
+      }
+
+      body, .ionic-body {
+        font-family: HelveticaNeue;
+      }
+
+      h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+        font-family: HelveticaNeue;
+      }
+
+      .tab-item {
+        font-family: HelveticaNeue;
+      }
+
+      input, button, select, textarea {
+        font-family: HelveticaNeue;
+      }
+    

@@ -1,0 +1,20 @@
+{
+  "name": "Mind50",
+  "version": "0.0.1",
+  "authors": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "www/components",
+    "www/spec",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "steroids-js": "3.5.x",
+    "angular": "~1.2.12",
+    "jquery": "2.0.3",
+    "lodash": "2.4.1",
+    "steroids-data": "~0.8.4"
+  }
+}
