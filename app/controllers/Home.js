@@ -121,6 +121,7 @@ app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
             $scope.getUid(function(){
                 $http.post(API_URL + '/position', {uid: $rootScope.uid, lat: lat, lon: lon}).success(function(resp){
                     $rootScope.total = resp.total;
+                    supersonic.ui.navigationBar.update({'title': "В чате: " + resp.total});
                 });
             });
         });
