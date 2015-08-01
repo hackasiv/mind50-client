@@ -11,6 +11,11 @@ var API_URL = 'http://api.crimeadev.com';
 
 app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
 
+    $scope.sending = false;
+
+    $rootScope.uid = false;
+    $rootScope.total = 0;
+
     $scope.message = {
         text: '',
         lat: 0,
@@ -33,6 +38,7 @@ app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
         }
 
         function run() {
+            $scope.sending = true;
             $scope.getPosition(function(cords){
 
                 console.log($rootScope.uid);
@@ -40,13 +46,17 @@ app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
                 var lat = cords['lat'];
                 var lon = cords['lon'];
                 var name = $scope.message.user;
-                $.post(API_URL + '/message/' + $rootScope.uid + '/' + lat + '/' + lon + '/' + name , {
+                $.post(API_URL + '/message/' + $rootScope.uid + '/' + lat + '/' + lon , {
                     message: $scope.message.text,
                     uid: $rootScope.uid,
                     lat: lat,
                     lon: lon
                 }).success(function(resp) {
                     console.log(resp);
+                    $scope.$apply(function(){
+                        $scope.message.text = '';
+                        $scope.sending = false;    
+                    });
                 });
 
             });
@@ -54,25 +64,26 @@ app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
         }
     };
 
-
-    $timeout(function task(){
-        $scope.getMessages();
-        $scope.postPosition();
-        $timeout(task, 5000);
-    }, 5000);
-
+    
     $scope.getUid = function(fn) {
 
         if (!$rootScope.uid) {
             $scope.getPosition(function(cords){
                 var lat = cords['lat'];
                 var lon = cords['lon'];
-                console.log(API_URL + '/uid/' + lat + '/' + lon);
-                $http.get(API_URL + '/uid/' + lat + '/' + lon).success(function(resp) {
-                    
-                    $rootScope.uid = resp.uid;
-                    $rootScope.total = resp.total;
-                    fn(resp.uid);//$rootScope.uid = resp.uid;
+
+                var options = {
+                  title: "Введите ваше имя",
+                  defaultText: ""
+                };
+
+                supersonic.ui.dialog.prompt("Введите ваше имя", options).then(function(result) {
+                    $rootScope.name = result.input; 
+                    $http.get(API_URL + '/uid/' + lat + '/' + lon + '/' + $rootScope.name).success(function(resp) {
+                        $rootScope.uid = resp.uid;
+                        $rootScope.total = resp.total;
+                        fn(resp.uid);//$rootScope.uid = resp.uid;
+                    });       
                 });
 
             });
@@ -108,7 +119,7 @@ app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
             var lon = cords['lon'];
             $scope.getUid(function(){
                 $http.post(API_URL + '/position', {uid: $rootScope.uid, lat: lat, lon: lon}).success(function(resp){
-
+                    $rootScope.total = resp.total;
                 });
             });
         });
@@ -123,5 +134,14 @@ app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
         });
 
     };
+
+    $scope.getUid(function() {
+        $scope.getMessages();
+        $timeout(function task(){
+            $scope.getMessages();
+            $scope.postPosition();
+            $timeout(task, 1000);
+        }, 1000);    
+    });
 
 });
