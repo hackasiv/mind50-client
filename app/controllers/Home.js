@@ -123,6 +123,7 @@ app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
                 $http.post(API_URL + '/position', {uid: $rootScope.uid, lat: lat, lon: lon}).success(function(resp){
                     console.log(resp);
                     $rootScope.total = resp.total;
+                    supersonic.ui.navigationBar.update({'title': "В чате: " + resp.total});
                 });
             })
         });
