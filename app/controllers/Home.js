@@ -6,7 +6,7 @@ var app = angular.module('mind50App', [
 ]);
 
 
-var API_URL = '';
+var API_URL = 'http://192.168.2.199/web';
 
 
 app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
@@ -33,9 +33,17 @@ app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
         }
 
         function run() {
-            $http.post(API_URL + '/message/' + $rootScope.uid + '/' + lat + '/' + lon + '/' + name , $scope.message).success(function(resp) {
+            $scope.getPosition(function(cords){
+                var lat = cords['lat'];
+                var lon = cords['lon'];
+
+                var name = $scope.message.user;
+                $http.post(API_URL + '/message/' + $rootScope.uid + '/' + lat + '/' + lon + '/' + name , $scope.message).success(function(resp) {
+
+                });
 
             });
+
         }
     };
 
@@ -51,12 +59,16 @@ app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
 
         if (!$rootScope.uid) {
 
-            var lat = 0;
-            var lon = 0;
+            $scope.getPosition(function(cords){
+                var lat = cords['lat'];
+                var lon = cords['lon'];
 
-            $http.get(API_URL + '/uid/' + lat + '/' + lon).success(function(resp) {
-                $rootScope.uid = resp.uid;
-                fn(resp.uid);//$rootScope.uid = resp.uid;
+                $http.get(API_URL + '/uid/' + lat + '/' + lon).success(function(resp) {
+                    $rootScope.uid = resp.uid;
+                    $rootScope.total = resp.total;
+                    fn(resp.uid);//$rootScope.uid = resp.uid;
+                });
+
             });
 
         } else {
@@ -76,15 +88,25 @@ app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
 
     $scope.postPosition = function() {
 
-        var lat = 0;
-        var lon = 0;
+        $scope.getPosition(function(cords){
+            var lat = cords['lat'];
+            var lon = cords['lon'];
+            $scope.getUid(function(){
+                $http.post(API_URL + '/position', {uid: $rootScope.uid, lat: lat, lon: lon}).success(function(resp){
 
-        $scope.getUid(function(){
-            $http.post(API_URL + '/position', {uid: $rootScope.uid, lat: lat, lon: lon}).success(function(resp){
-
+                });
             });
         });
 
+    };
+
+    $scope.getPosition = function(callback) {
+
+        supersonic.device.geolocation.getPosition().then( function(position) {
+            cords['lat'] = position.coords.latitude;
+            cords['lon'] = position.coords.longitude;
+            callback(cords);
+        });
     };
 
 });
