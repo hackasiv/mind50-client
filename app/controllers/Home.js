@@ -14,6 +14,7 @@ app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
     $scope.sending = false;
 
     $rootScope.uid = false;
+    $rootScope.total = 0;
 
     $scope.message = {
         text: '',
@@ -52,8 +53,10 @@ app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
                     lon: lon
                 }).success(function(resp) {
                     console.log(resp);
-                    $scope.message.message = '';
-                    $scope.sending = false;
+                    $scope.$apply(function(){
+                        $scope.message.text = '';
+                        $scope.sending = false;    
+                    });
                 });
 
             });
@@ -71,7 +74,7 @@ app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
 
                 var options = {
                   title: "Введите ваше имя",
-                  defaultText: "Оленька"
+                  defaultText: ""
                 };
 
                 supersonic.ui.dialog.prompt("Введите ваше имя", options).then(function(result) {
@@ -116,7 +119,7 @@ app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
             var lon = cords['lon'];
             $scope.getUid(function(){
                 $http.post(API_URL + '/position', {uid: $rootScope.uid, lat: lat, lon: lon}).success(function(resp){
-
+                    $rootScope.total = resp.total;
                 });
             });
         });
@@ -133,11 +136,12 @@ app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
     };
 
     $scope.getUid(function() {
+        $scope.getMessages();
         $timeout(function task(){
             $scope.getMessages();
             $scope.postPosition();
-            $timeout(task, 5000);
-        }, 5000);    
+            $timeout(task, 1000);
+        }, 1000);    
     });
 
 });
