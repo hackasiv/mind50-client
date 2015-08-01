@@ -1,11 +1,10 @@
 
 /* Begin CSS for Home */
 #Home {
-
   min-height: 480px;
-
   overflow-y: auto;
-
+  background: url('../images/logo.png') center center no-repeat;
+  background-size: 80% auto;
 }
 
 
