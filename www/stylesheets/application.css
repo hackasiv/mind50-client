@@ -151,3 +151,16 @@ div#global-spinner-div {
   font-size: 16px;
   line-height: 1.2;
 }
+
+body {
+  position: relative;
+  width: 100%;
+}
+
+.stiky-footer {
+
+  position: absolute;
+  bottom: 0px;
+  padding: 0;
+
+}

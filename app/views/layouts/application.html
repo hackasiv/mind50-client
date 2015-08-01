@@ -5,21 +5,30 @@
   <title>Steroids App</title>
 
   <link rel="stylesheet" href="/vendor/ionic/css/ionic.css" />
+  
+  <link rel="stylesheet" href="/components/supersonic/css/supersonic.css" />
+  <link rel="stylesheet" href="/app/common/stylesheets/application.css" />
+  <link rel="import" href="/components/supersonic/components/import.html">
   <link rel="stylesheet" href="/custom.css" />
   <link rel="stylesheet" href="/stylesheets/application.css" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
   <script src="/cordova.js"></script>
   <script src="/components/steroids-js/steroids.js"></script>
   <script src="/components/steroids-data/dist/steroids.data.js"></script>
 
   <script src="/components/angular/angular.js"></script>
+  <script src="/components/supersonic/supersonic.js"></script>
+  <script src="/components/webcomponentsjs/webcomponents.js"></script>
   <script src="/components/lodash/dist/lodash.js"></script>
   <script src="/components/jquery/jquery.js"></script>
 
   <script src="/models/models.js"></script>
 
   <script src="/controllers/application.js"></script>
-  <script src="/controllers/home.js"></script>
+  <script src="/controllers/<%= yield.controller %>.js"></script>
 </head>
 <body ng-app="mind50App" class="content">
 <div id="global-spinner-div">
@@ -31,9 +40,15 @@
   </div>
 </div>
 
+
+  <super-navbar>
+    <super-navbar-title>tetet</super-navbar-title>
+    </super-navbar>
+
   <%= yield.view %>
 
 <script>
+supersonic.ui.navigationBar.show()
   window.globalSpinner = {
     show: function() {
       document.ontouchmove = function(e){ 
