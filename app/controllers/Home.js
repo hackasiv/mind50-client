@@ -9,7 +9,7 @@ var app = angular.module('mind50App', [
 var API_URL = '';
 
 
-app.controller('AppController', function($scope, $rootScope, $http) {
+app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
 
     $scope.message = {
         text: '',
@@ -21,6 +21,9 @@ app.controller('AppController', function($scope, $rootScope, $http) {
 
     $scope.submit = function() {
 
+        var lat = 0;
+        var lon = 0;
+
         if (!$rootScope.uid) {
             $scope.getUid(function(uid){
                 run();
@@ -30,12 +33,19 @@ app.controller('AppController', function($scope, $rootScope, $http) {
         }
 
         function run() {
-            $http.post(API_URL + '/message/' + $rootScope.uid, $scope.message).success(function(resp) {
+            $http.post(API_URL + '/message/' + $rootScope.uid + '/' + lat + '/' + lon + '/' + name , $scope.message).success(function(resp) {
 
             });
         }
     };
 
+
+    $timeout(function(){
+
+        $scope.getMessages();
+        $scope.postPosition();
+
+    }, 5000);
 
     $scope.getUid = function(fn) {
 
@@ -61,6 +71,20 @@ app.controller('AppController', function($scope, $rootScope, $http) {
                 $scope.messages = response.messages;
             });
         });
-    }
+    };
+
+
+    $scope.postPosition = function() {
+
+        var lat = 0;
+        var lon = 0;
+
+        $scope.getUid(function(){
+            $http.post(API_URL + '/position', {uid: $rootScope.uid, lat: lat, lon: lon}).success(function(resp){
+
+            });
+        });
+
+    };
 
 });
