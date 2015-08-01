@@ -75,7 +75,7 @@ app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
                 var options = {
                   title: "Введите ваше имя",
                   defaultText: "",
-                  buttonLabels: ["OK", "Cancel"]
+                  buttonLabels: ["OK"]
                 };
 
                 supersonic.ui.dialog.prompt("Введите ваше имя", options).then(function(result) {
@@ -120,10 +120,11 @@ app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
                 var lat = cords['lat'];
                 var lon = cords['lon'];
                 console.log(cords, 'postPosition');
-                $http.post(API_URL + '/position', {uid: $rootScope.uid, lat: lat, lon: lon}).success(function(resp){
+                $.post(API_URL + '/position', {uid: $rootScope.uid, lat: lat, lon: lon}).success(function(resp){
                     console.log(resp);
-                    $rootScope.total = resp.total;
-                    supersonic.ui.navigationBar.update({'title': "В чате: " + resp.total});
+                    $scope.$apply(function() {
+                        $rootScope.total = resp.total;    
+                    });
                 });
             })
         });
