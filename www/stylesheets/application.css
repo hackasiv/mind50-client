@@ -163,14 +163,14 @@ body {
 }
 
 .messages-wrap{
-  padding-bottom: 170px;
+  padding-bottom: 130px;
 }
 
 .stiky-footer {
   position: fixed;
   bottom: 0px;
   padding: 0;
-  height: 170px;
+  height: 130px;
   background: #fff;
   width: 100%;
   z-index: 1000;
