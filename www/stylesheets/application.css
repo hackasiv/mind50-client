@@ -92,7 +92,6 @@
 
 /* End CSS for Home */
 
-
 div#global-spinner-div {
   display: none;
 }
@@ -156,11 +155,28 @@ body {
   position: relative;
   width: 100%;
 }
+#Home{
+  width: 100%;
+}
+#Home .card{
+  width: 95% !important;
+}
+
+.messages-wrap{
+  padding-bottom: 170px;
+}
 
 .stiky-footer {
-
-  position: absolute;
+  position: fixed;
   bottom: 0px;
   padding: 0;
-
+  height: 170px;
+  background: #fff;
+  width: 100%;
+  z-index: 1000;
 }
+
+.stiky-footer input{
+  width: 100%;
+}
+
