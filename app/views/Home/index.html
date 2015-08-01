@@ -1,4 +1,4 @@
-<div ng-controller="HomeCtrl" id="Home">
+<div ng-controller="AppController" id="Home">
   
 <div class="messages-wrap">
 
@@ -79,23 +79,26 @@
   <div id="user_name" ng-click="user_name()">
     <div class="list">
       <label class="item item-input item-stacked-label">
+        <input type="text" placeholder="Введите сообщение" ng-model="message.text">
         <input type="text" placeholder="Ваше имя" ng-model="user_name.value">
       </label>
     </div>
   </div>
-  <div id="user_message" ng-click="user_message()">
-    <div class="list">
-      <label class="item item-input item-stacked-label">
-        <input type="text" placeholder="Введите сообщение" ng-model="user_message.value">
-      </label>
+    <div id="text_field_with_stacked_label1" ng-click="text_field_with_stacked_label1Tap()">
+        <div class="list">
+            <label class="item item-input item-stacked-label">
+                <input type="text" placeholder="Введите сообщение" ng-model="message.text">
+            </label>
+        </div>
     </div>
-  </div>
 
-  <div id="button2" ng-click="button2Tap()">
+
+<div id="button2" ng-click="submit()">
     <button class="button button-positive">
-      Отправить
+        Отправить
     </button>
-  </div>
+</div>
+
 
 
 </div>
