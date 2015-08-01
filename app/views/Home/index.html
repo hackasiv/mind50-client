@@ -1,23 +1,22 @@
 <div ng-controller="AppController" id="Home">
 
 <super-navbar>
-    <super-navbar-title ng-hide="total==0">Вас окружает {{total}} существ</super-navbar-title>
-    <super-navbar-title ng-show="total==0">одиночество...</super-navbar-title>
+    <super-navbar-title ng-hide="!total">Вас окружает {{ total }} существ</super-navbar-title>
+    <super-navbar-title ng-show="!total">одиночество...</super-navbar-title>
 </super-navbar>
 <div class="messages-wrap">
-
     <div ng-repeat="message in messages">
       <div class="card">
-        <div class="message-title">{{message.user}}</div>
+        <div class="message-title">{{ message.user }}</div>
         <div class="item item-text-wrap">
-            {{message.text}}
+            {{ message.text }}
         </div>
       </div>
     </div>
 </div>
 
 <div class="stiky-footer">  
-  <div id="user_name" ng-click="user_name()">
+  <div id="user_name" >
     <div class="list">
       <label class="item item-input item-stacked-label">
         <input type="text" placeholder="Ваше имя" ng-model="message.user">
@@ -31,7 +30,6 @@
             </label>
         </div>
     </div>
-
 
 <div id="button2" ng-click="submit()">
     <button class="button button-positive">
