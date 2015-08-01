@@ -82,7 +82,7 @@ app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
                     $http.get(API_URL + '/uid/' + lat + '/' + lon + '/' + $rootScope.name).success(function(resp) {
                         $rootScope.uid = resp.uid;
                         $rootScope.total = resp.total;
-                        supersonic.ui.navigationBar.update({'title': resp.total});
+                        supersonic.ui.navigationBar.update({'title': "В чате: " + resp.total});
                         fn(resp.uid);//$rootScope.uid = resp.uid;
                     });       
                 });
