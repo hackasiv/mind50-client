@@ -5,17 +5,15 @@
     </super-navbar>
 
     <div class="messages-wrap">
-        <ul class="list">
-            <li ng-repeat="message in messages" class="item">
-                <div class="card">
-                    <div class="message-title">{{ message.nick }}</div>
-                    <div class="item item-text-wrap">
-                        {{ message.message }}
-                    </div>
-                    <a href="#{{ message.uid }}-{{ message.time }}"></a>
+        <div ng-repeat="message in messages">
+            <div class="card">
+                <div class="message-title">{{ message.nick }}</div>
+                <div class="item item-text-wrap">
+                    {{ message.message }}
                 </div>
-            </li>
-        </ul>
+                <a href="#{{ message.uid }}-{{ message.time }}"></a>
+            </div>
+        </div>
     </div>
 
     <div class="stiky-footer">
