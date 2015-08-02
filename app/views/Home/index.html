@@ -1,36 +1,38 @@
 <div ng-controller="AppController" id="Home">
 
-<super-navbar>
-    <super-navbar-title></super-navbar-title>
-</super-navbar>
-<div class="messages-wrap">
-    <div ng-repeat="message in messages">
-      <div class="card">
-        <div class="message-title">{{ message.nick }}</div>
-        <div class="item item-text-wrap">
-            {{ message.message }}
-        </div>
-      </div>
-    </div>
-</div>
+    <super-navbar>
+        <super-navbar-title></super-navbar-title>
+    </super-navbar>
 
-<div class="stiky-footer">  
-    <div id="text_field_with_stacked_label1">
-        <div class="list">
-            <label class="item item-input item-stacked-label">
-                <input type="text" placeholder="Введите сообщение" ng-model="message.text">
-            </label>
-        </div>
+    <div class="messages-wrap">
+        <ul class="list">
+            <li ng-repeat="message in messages" class="item">
+                <div class="card">
+                    <div class="message-title">{{ message.nick }}</div>
+                    <div class="item item-text-wrap">
+                        {{ message.message }}
+                    </div>
+                    <a href="#{{ message.uid }}-{{ message.time }}"></a>
+                </div>
+            </li>
+        </ul>
     </div>
 
-<div id="button2" ng-click="submit()" disabled="{{ sending }}">
-    <button class="button button-positive">
-        Отправить
-    </button>
-</div>
+    <div class="stiky-footer">
+        <div id="text_field_with_stacked_label1">
+            <div class="list">
+                <label class="item item-input item-stacked-label">
+                    <input type="text" placeholder="Введите сообщение" ng-model="message.text">
+                </label>
+            </div>
+        </div>
 
+        <div id="button2" ng-click="submit()" disabled="{{ sending }}">
+            <button class="button button-positive">
+                Отправить
+            </button>
+        </div>
 
-
-</div>
+    </div>
 
 </div>
