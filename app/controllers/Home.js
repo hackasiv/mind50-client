@@ -36,7 +36,15 @@ app.controller('AppController', function($scope, $rootScope, $http, $timeout) {
     $scope.messages = [];
 
     $scope.notify = function () {
-        navigator.notification.beep(2);
+        //navigator.notification.beep(2);
+        var beep = new Media('sounds/beep.mp3',
+            // success callback
+            function () { console.log("playAudio():Audio Success"); },
+            // error callback
+            function (err) { console.log("playAudio():Audio Error: " + err); }
+        );
+        // Play audio
+        beep.play();
     };
 
 
