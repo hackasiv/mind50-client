@@ -1,8 +1,4 @@
-<div ng-controller="AppController" id="Home">
-
-    <super-navbar>
-        <super-navbar-title></super-navbar-title>
-    </super-navbar>
+<!-- <div class="page-wrap" ng-controller="MessageListController" id="Home">
 
     <div class="messages-wrap">
         <div ng-repeat="message in messages">
@@ -15,22 +11,57 @@
             </div>
         </div>
     </div>
+</div>
 
-    <div class="stiky-footer">
-        <div id="text_field_with_stacked_label1">
-            <div class="list">
-                <label class="item item-input item-stacked-label">
-                    <input type="text" placeholder="Введите сообщение" ng-model="message.text">
-                </label>
-            </div>
+<footer class="site-footer" ng-controller="MessageSendController">
+    <form action="" class="form form-horizontal">
+        <div class="list">
+            <label class="item item-input item-stacked-label">
+                <input type="text" placeholder="Введите сообщение" ng-model="message.text">
+            </label>
         </div>
-
         <div id="button2" ng-click="submit()" disabled="{{ sending }}">
             <button class="button button-positive">
                 Отправить
             </button>
         </div>
+    </form>
+</footer> -->
+<super-navbar>
+  <super-navbar-title>I'm a title</super-navbar-title>
+</super-navbar>
+<div class="padding">
+  <div class="list" id="message-list" ng-controller="MessageListController">
 
+
+
+
+    <div class="row" href="#" ng-repeat="msg in messages">
+      <div class="col" ng-show="msg.uid==uid">
+        <div class="nick" ng-class="{right: msg.uid==uid}">
+          {{ msg.nick }}
+        </div>
+        <div class="bubble bubble--alt">
+          {{ msg.message }}
+        </div>
+      </div>
+      <div class="col-30 avatar-box">
+        <img ng-src="http://api.adorable.io/avatars/60/{{msg.nick}}-mind50.png" class="avatar60">
+      </div>
+      <div class="col"  ng-hide="msg.uid==uid">
+        <div class="nick">
+          {{ msg.nick }}
+        </div>
+        <div class="bubble">
+          {{ msg.message }}
+        </div>
+      </div>
     </div>
-
+</div>
+</div>
+<div class="bar bar-footer" id="native-footer" ng-controller="MessageSendController">
+  <textarea placeholder="Type your mind here ..." name="message_text" ng-model="message.text" rows="1"></textarea>
+  <div class="send-button-box-circle" ng-class="{disabled: sending}" ng-click="submit()">
+    <i class="icon super-chevron-right" id="send-button"></i>
+  </div>
 </div>

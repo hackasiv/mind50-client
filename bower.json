@@ -16,6 +16,7 @@
     "jquery": "2.0.3",
     "lodash": "2.4.1",
     "steroids-data": "~0.8.4",
-    "supersonic": "1.x"
+    "supersonic": "1.x",
+    "mobile-angular-ui": "~1.2.0-beta.11"
   }
 }

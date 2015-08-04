@@ -5,13 +5,12 @@
   <title>Steroids App</title>
 
   <link rel="stylesheet" href="/vendor/ionic/css/ionic.css" />
-  
+
   <link rel="stylesheet" href="/components/supersonic/css/supersonic.css" />
   <link rel="stylesheet" href="/app/common/stylesheets/application.css" />
-  <link rel="import" href="/components/supersonic/components/import.html">
-  <link rel="stylesheet" href="/custom.css" />
+  <link rel="import" href="/components/supersonic/components/import.html"/>
   <link rel="stylesheet" href="/stylesheets/application.css" />
-
+  <link rel="stylesheet" href="/custom.css" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
@@ -25,40 +24,15 @@
   <script src="/components/lodash/dist/lodash.js"></script>
   <script src="/components/jquery/jquery.js"></script>
 
-  <script src="/models/models.js"></script>
-
   <script src="/controllers/application.js"></script>
   <script src="/controllers/<%= yield.controller %>.js"></script>
 </head>
-<body ng-app="mind50App" class="content">
-<div id="global-spinner-div">
-  <div class="global-blackout"></div>
-  <div class="global-modal-container">
-    <div class="global-spinner-container">
-      <i class="icon ion-ios7-reloading"></i>
-    </div>
-  </div>
-</div>
-
-
+<body ng-app="mind50App" class="content" ng-controller="AppController">
 
   <%= yield.view %>
 
-
 <script>
-supersonic.ui.navigationBar.show()
-  window.globalSpinner = {
-    show: function() {
-      document.ontouchmove = function(e){ 
-        e.preventDefault(); 
-      }
-      document.getElementById("global-spinner-div").style.display = 'block';
-    },
-    hide: function() {
-      document.getElementById("global-spinner-div").style.display = 'none';
-      document.ontouchmove = function(e){ return true; }
-    }
-  };
+//supersonic.ui.navigationBar.show();
 </script>
 
 </body>

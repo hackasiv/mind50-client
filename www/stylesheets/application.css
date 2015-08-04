@@ -1,39 +1,11 @@
 
 /* Begin CSS for Home */
-#Home {
-  min-height: 480px;
-  overflow-y: auto;
-  background: url('../images/logo.png') center center no-repeat;
-  background-size: 80% auto;
-}
-
-
-#Home #card3 {
-
-  margin-top: 10px;
-
-  margin-right: 0px;
-
-  margin-bottom: 10px;
-
-  margin-left: 0px;
-
-  z-index: 0;
-
-}
-#Home #card3 > *:first-child {
-
-  padding-top: 1px;
-
-  padding-right: 0px;
-
-  padding-bottom: 1px;
-
-  padding-left: 0px;
-
-  width: 300px;
-
-}
+/*#Home {*/
+  /*/!*min-height: 480px;*!/*/
+  /*/!*overflow-y: auto;*!/*/
+  /*background: url('../images/logo.png') center center no-repeat;*/
+  /*background-size: 80% auto;*/
+/*}*/
 
 #Home #text_field_with_stacked_label1 {
 
@@ -48,6 +20,7 @@
   z-index: 3;
 
 }
+
 #Home #text_field_with_stacked_label1 > *:first-child {
 
   padding-top: 0px;
@@ -62,20 +35,7 @@
 
 }
 
-#Home #button2 {
-
-  margin-top: 10px;
-
-  margin-right: 10px;
-
-  margin-bottom: 10px;
-
-  margin-left: 10px;
-
-  z-index: 2;
-
-}
-#Home #button2 > *:first-child {
+#button2 {
 
   padding-top: 0px;
 
@@ -89,59 +49,6 @@
 
 }
 
-/* End CSS for Home */
-
-div#global-spinner-div {
-  display: none;
-}
-
-.global-blackout {
-  z-index: 9999;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-  background-color: #000;
-  opacity: 0.7;
-}
-
-.global-modal-container {
-  z-index: 99999;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-}
-
-.global-spinner-container {
-  position:absolute;
-  width:100px;
-  height:100px;
-  top:50%;
-  left:50%;
-  margin:-50px 0 0 -50px;
-  background-color: #eee;
-  opacity: 0.8;
-  display: -webkit-box;
-  -webkit-box-orient:vertical;
-  -webkit-box-pack: center;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  border-radius: 7px;
-  -webkit-box-align: center;
-  -moz-box-shadow: 3px 3px 3px rgba(0,0,0,0.2);
-  -webkit-box-shadow: 3px 3px 3px rgba(0,0,0,0.2);
-  box-shadow: 3px 3px 3px rgba(0,0,0,0.2);
-}
-
-.global-spinner-container .icon {
-  font-size: 40px;
-  line-height: 1;
-  width: 40px;
-  height: 40px;
-}
 
 .card .message-title{
   font-weight: bold;
@@ -150,32 +57,178 @@ div#global-spinner-div {
   line-height: 1.2;
 }
 
-body {
-  position: relative;
-  width: 100%;
-}
-#Home{
-  width: 100%;
-}
-#Home .card{
-  width: 95% !important;
-}
+/*body {*/
+  /*position: relative;*/
+  /*width: 100%;*/
+/*}*/
+
+/*#Home{*/
+  /*width: 100%;*/
+/*}*/
+/*#Home .card{*/
+  /*width: 95% !important;*/
+/*}*/
 
 .messages-wrap{
-  padding-bottom: 130px;
+  overflow-y: scroll;
 }
 
-.stiky-footer {
-  position: fixed;
-  bottom: 0px;
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
   padding: 0;
-  height: 130px;
-  background: #fff;
-  width: 100%;
-  z-index: 1000;
 }
 
-.stiky-footer input{
-  width: 100%;
+.content {
+  margin: 0 auto;
+  background: url('../images/logo.png') center center no-repeat;
+  background-size: 80% auto;
 }
 
+#Home {
+  overflow-x: scroll;
+  display: block;
+}
+
+#native-footer {
+  position: fixed;
+  bottom: 0;
+  height: 80px;
+  /*background-color: grey;*/
+}
+
+#message-list {
+  margin-bottom: 80px;
+}
+
+.send-button-box-circle {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  vertical-align: middle;
+  text-align: center;
+  position: absolute;
+  border: 0.1px solid;
+  border-radius: 60px;
+  top: 30px;
+  right: 10px;
+  box-shadow: 1px 1px 30px;
+  opacity: 1;
+}
+
+#send-button {
+  position: relative;
+}
+
+.send-button-box-circle:active {
+  box-shadow: 0 0 0;
+}
+
+.send-button-box-circle.disabled {
+  opacity: 0.4;
+}
+
+
+/* .bubble */
+
+.bubble {
+	background-image: linear-gradient(bottom, rgb(210,244,254) 25%, rgb(149,194,253) 100%);
+  background-image: -o-linear-gradient(bottom, rgb(210,244,254) 25%, rgb(149,194,253) 100%);
+  background-image: -moz-linear-gradient(bottom, rgb(210,244,254) 25%, rgb(149,194,253) 100%);
+  background-image: -webkit-linear-gradient(bottom, rgb(210,244,254) 25%, rgb(149,194,253) 100%);
+  background-image: -ms-linear-gradient(bottom, rgb(210,244,254) 25%, rgb(149,194,253) 100%);
+  background-image: -webkit-gradient(
+  	linear,
+  	left bottom,
+  	left top,
+  	color-stop(0.25, rgb(210,244,254)),
+  	color-stop(1, rgb(149,194,253))
+  );
+	border: solid 0px rgba(0, 0, 0, 0.5);
+	/* vendor rules */
+	border-radius: 20px;
+	/* vendor rules */
+	box-shadow: inset 0 5px 5px rgba(255, 255, 255, 0.4), 0 1px 3px rgba(0, 0, 0, 0.2);
+	/* vendor rules */
+	box-sizing: border-box;
+	clear: both;
+	float: left;
+	margin-bottom: 20px;
+	padding: 8px 30px;
+	position: relative;
+	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
+	width: auto;
+	max-width: 100%;
+	word-wrap: break-word;
+}
+
+.bubble:before, .bubble:after {
+	border-radius: 20px / 10px;
+	content: '';
+	display: block;
+	position: absolute;
+  border: 0;
+}
+
+.bubble:before {
+	border: 10px solid transparent;
+	/*border-bottom-color: rgba(0, 0, 0, 0.5);*/
+	bottom: 0;
+	left: -7px;
+	z-index: -2;
+}
+
+.bubble:after {
+	border: 8px solid transparent;
+	border-bottom-color: #d2f4fe;
+	bottom: 1px;
+	left: -5px;
+}
+
+.bubble--alt {
+	background-image: linear-gradient(bottom, rgb(172,228,75) 25%, rgb(122,205,71) 100%);
+background-image: -o-linear-gradient(bottom, rgb(172,228,75) 25%, rgb(122,205,71) 100%);
+background-image: -moz-linear-gradient(bottom, rgb(172,228,75) 25%, rgb(122,205,71) 100%);
+background-image: -webkit-linear-gradient(bottom, rgb(172,228,75) 25%, rgb(122,205,71) 100%);
+background-image: -ms-linear-gradient(bottom, rgb(172,228,75) 25%, rgb(122,205,71) 100%);
+background-image: -webkit-gradient(
+	linear,
+	left bottom,
+	left top,
+	color-stop(0.25, rgb(172,228,75)),
+	color-stop(1, rgb(122,205,71))
+);
+	float: right;
+}
+
+.bubble--alt:before {
+	border-bottom-color: rgba(0, 0, 0, 0.5);
+	border-radius: 20px / 10px;
+	left: auto;
+	right: -7px;
+}
+
+.bubble--alt:after {
+	border-bottom-color: #ace44b;
+	border-radius: 20px / 10px;
+	left: auto;
+	right: -5px;
+}
+
+img.avatar60 {
+  border-radius: 120px;
+}
+
+.avatar-box {
+  margin: auto;
+}
+
+.nick {
+  font-size: 80%;
+  font-weight: bold;
+}
+.nick.right {
+  text-align: right;
+}
