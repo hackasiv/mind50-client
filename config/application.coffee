@@ -27,7 +27,7 @@ steroids.config.location = "http://localhost/views/Home/index.html"
 # steroids.config.tabBar.selectedTabBackgroundImage = "icons/pill@2x.png"
 
 # steroids.config.tabBar.backgroundImage = ""
-      
+
 
 # ## Preloads
 # steroids.config.preloads = [
@@ -36,20 +36,20 @@ steroids.config.location = "http://localhost/views/Home/index.html"
 #     location: "http://www.google.com"
 #   }
 # ]
-    
 
-# ## Drawers 
+
+# ## Drawers
 # steroids.config.drawers =
 #   left:
 #     id: "leftDrawer"
 #     location: "http://localhost/leftDrawer.html"
 #     showOnAppLoad: true
-#     widthOfDrawerInPixels: 200 
+#     widthOfDrawerInPixels: 200
 #   right:
 #     id: "rightDrawer"
 #     location: "http://localhost/rightDrawer.html"
 #     showOnAppLoad: true
-#     widthOfDrawerInPixels: 200 
+#     widthOfDrawerInPixels: 200
 #   options:
 #     centerViewInteractionMode: "Full"
 #     closeGestures: ["PanNavBar", "PanCenterView", "TapCenterView"]
@@ -59,12 +59,17 @@ steroids.config.location = "http://localhost/views/Home/index.html"
 #     widthOfLayerInPixels: 0
 
 
+steroids.config.plugins = [
+  {"source":"https://github.com/dpa99c/cordova-diagnostic-plugin.git"}
+]
+
 # ## Initial View
 # steroids.config.initialView =
 #   id: "initialView"
 #   location: "http://localhost/initialView.html"
 
 # ## Navigation Bar
+steroids.config.navigationBar.enabled = false
 steroids.config.navigationBar.tintColor = "#eeeeee"
 steroids.config.navigationBar.titleColor = "#444444"
 steroids.config.navigationBar.buttonTintColor = ""
@@ -97,4 +102,3 @@ steroids.config.statusBar.style = "Light"
 # ## Default Editor
 # steroids.config.editor.cmd = "subl"
 # steroids.config.editor.args = ["."]
-  

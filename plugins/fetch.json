@@ -1,0 +1,8 @@
+{
+    "cordova.plugins.diagnostic": {
+        "source": {
+            "type": "registry",
+            "id": "cordova.plugins.diagnostic"
+        }
+    }
+}

@@ -1,48 +1,26 @@
-<!-- <div class="page-wrap" ng-controller="MessageListController" id="Home">
+<div class="bar bar-header bar-light">
 
-    <div class="messages-wrap">
-        <div ng-repeat="message in messages">
-            <div class="card">
-                <div class="message-title">{{ message.nick }}</div>
-                <div class="item item-text-wrap">
-                    {{ message.message }}
-                </div>
-                <a href="#{{ message.uid }}-{{ message.time }}"></a>
-            </div>
-        </div>
-    </div>
+  <button class="button button-icon icon super-ios-people"> {{ total }}</button>
+  <div class="h1 title">Mind50</div>
+  <button class="button button-icon icon super-ios-person crop"> {{ name }}</button>
+
 </div>
 
-<footer class="site-footer" ng-controller="MessageSendController">
-    <form action="" class="form form-horizontal">
-        <div class="list">
-            <label class="item item-input item-stacked-label">
-                <input type="text" placeholder="Введите сообщение" ng-model="message.text">
-            </label>
-        </div>
-        <div id="button2" ng-click="submit()" disabled="{{ sending }}">
-            <button class="button button-positive">
-                Отправить
-            </button>
-        </div>
-    </form>
-</footer> -->
-<super-navbar>
-  <super-navbar-title>I'm a title</super-navbar-title>
-</super-navbar>
+<div class="bg">
+  <!--  BACKGROUND -->
+</div>
+
 <div class="padding">
   <div class="list" id="message-list" ng-controller="MessageListController">
-
-
-
-
     <div class="row" href="#" ng-repeat="msg in messages">
       <div class="col" ng-show="msg.uid==uid">
         <div class="nick" ng-class="{right: msg.uid==uid}">
           {{ msg.nick }}
         </div>
         <div class="bubble bubble--alt">
-          {{ msg.message }}
+          <span>{{ msg.message }}</span>
+
+          <time>{{ msg.time|relative }}</time>
         </div>
       </div>
       <div class="col-30 avatar-box">
@@ -53,14 +31,16 @@
           {{ msg.nick }}
         </div>
         <div class="bubble">
-          {{ msg.message }}
+          <span>{{ msg.message }}</span>
+
+          <time>{{ msg.time|relative }}</time>
         </div>
       </div>
     </div>
 </div>
 </div>
 <div class="bar bar-footer" id="native-footer" ng-controller="MessageSendController">
-  <textarea placeholder="Type your mind here ..." name="message_text" ng-model="message.text" rows="1"></textarea>
+  <textarea placeholder="Type your mind here ..." name="message_text" ng-model="message.text" rows="1" class="message-field"></textarea>
   <div class="send-button-box-circle" ng-class="{disabled: sending}" ng-click="submit()">
     <i class="icon super-chevron-right" id="send-button"></i>
   </div>

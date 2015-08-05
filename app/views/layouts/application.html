@@ -23,6 +23,8 @@
   <script src="/components/webcomponentsjs/webcomponents.js"></script>
   <script src="/components/lodash/dist/lodash.js"></script>
   <script src="/components/jquery/jquery.js"></script>
+  <script src="/components/moment/min/moment-with-locales.min.js"></script>
+  <script src="/javascripts/angular-moment.min.js"></script>
 
   <script src="/controllers/application.js"></script>
   <script src="/controllers/<%= yield.controller %>.js"></script>
@@ -32,7 +34,12 @@
   <%= yield.view %>
 
 <script>
-//supersonic.ui.navigationBar.show();
+supersonic.ui.navigationBar.hide();
+// supersonic.device.geolocation.watchPosition(
+//   {options: {enableHighAccuracy: true}}
+// ).onValue(function(p) {
+//   console.log(p, 'p');
+// });
 </script>
 
 </body>

@@ -19,11 +19,31 @@ $(document).ready(function() {
     //    e.preventDefault();
     //};
     //$('.page-wrap').height($('body').height());
+    moment.locale('ru');
+});
+//supersonic.device.ready.then(function() {
+  // supersonic.device.geolocation.watchPosition().onValue(function(position) {
+  //   supersonic.logger.log(
+  //     """
+  //     Latitude: #{position.coords.latitude}
+  //     Longitude: #{position.coords.longitude}
+  //     Timestamp: #{position.timestamp}
+  //     """
+  //   )
+  //   supersonic.ui.navigationBar.update({'title': position.coords});
+  // });
+//});
+
+app.filter('relative', function() {
+   return function(input) {
+     var now = moment().utcOffset(-4).format();
+     now = now.replace(/(\+|\-)\d{2}\:\d{2}$/, ''); // удаляем часовой пояс
+     return moment(input).startOf('minute').from(now);
+   }
 });
 
-app.controller('AppController', function($scope) {
+app.controller('AppController', function($scope, $rootScope) {});
 
-});
 
 app.controller('MessageSendController', function($scope, $rootScope) {
 
@@ -33,7 +53,7 @@ app.controller('MessageSendController', function($scope, $rootScope) {
     };
 
     $scope.notify = function() {
-      var sound_src = $rootScope.path + 'sounds/sounds-900-you-know.mp3';
+      var sound_src = 'https://github.com/hackasiv/mind50-client/blob/master/www/sounds/sounds-900-you-know.mp3?raw=true';
       //navigator.notification.beep(2);
       var beep = new Media(sound_src,
           // success callback
@@ -47,7 +67,7 @@ app.controller('MessageSendController', function($scope, $rootScope) {
 
     $scope.submit = function() {
 
-        if (!$rootScope.uid || !$rootScope.coords) {
+        if (!$rootScope.uid || !$rootScope.coords || !$scope.message.text) {
             return;
         }
         $scope.notify();
@@ -72,7 +92,6 @@ app.controller('MessageSendController', function($scope, $rootScope) {
 
 });
 
-
 app.controller('MessageListController', function($scope, $rootScope, $http, $timeout) {
 
     $rootScope.uid = false;
@@ -84,24 +103,9 @@ app.controller('MessageListController', function($scope, $rootScope, $http, $tim
 
     $scope.messages = [];
 
-    var getPath = function () {
-        if ($rootScope.platform) {
-          var path = 'http://localhost/';
-          if ($rootScope.platform.name != 'iOS') {
-            return '/android_asset/www/';
-          }
-          $rootScope.path = path;
-        } else {
-          supersonic.device.platform().then( function(platform) {
-              $rootScope.platform = platform;
-              getPath();
-          });
-        }
-    }
-
     $scope.notify = function () {
         //navigator.notification.beep(2);
-        var sound_src = $rootScope.path + 'sounds/sounds-874-gets-in-the-way.wav';
+        var sound_src = 'https://github.com/hackasiv/mind50-client/blob/master/www/sounds/sounds-874-gets-in-the-way.mp3?raw=true';
         var beep = new Media(sound_src,
             // success callback
             function () { console.log("playAudio():Audio Success"); },
@@ -141,7 +145,7 @@ app.controller('MessageListController', function($scope, $rootScope, $http, $tim
                             $rootScope.uid = resp.uid;
                             $rootScope.total = resp.total;
                             $rootScope.name = result.input;
-                            supersonic.ui.navigationBar.update({'title': "В чате: " + resp.total});
+                            //supersonic.ui.navigationBar.update({'title': "В чате: " + resp.total});
                             fn(resp.uid);
                         });
 
@@ -164,11 +168,13 @@ app.controller('MessageListController', function($scope, $rootScope, $http, $tim
             var lon = $rootScope.coords.lon;
 
             $http.get(API_URL + '/message/' + $rootScope.uid + '/' + lat + '/' + lon).success(function(response) {
-                if (response.length) {
+                if (response.length) {console.log(response);
                     for(var i in response) {
                         $scope.messages.push(response[i]);
                     }
-                    $timeout($scope.notify, 0); // play sound
+                    if (!(response.length == 1 && response[0].uid == $rootScope.uid)) {
+                        $timeout($scope.notify, 0); // уведомление только для чужих сообщений
+                    }
                     $timeout(function(){
                         $('body').animate({ scrollTop: $(document).height() + 100 }, "slow");
                     }, 100);
@@ -187,8 +193,10 @@ app.controller('MessageListController', function($scope, $rootScope, $http, $tim
                 var lat = coords['lat'];
                 var lon = coords['lon'];
                 $.post(API_URL + '/position', {uid: $rootScope.uid, lat: lat, lon: lon}).success(function(resp){
-                    $scope.$apply(function() {
+                    resp = JSON.parse(resp);
+                    $rootScope.$apply(function() {
                         $rootScope.total = resp.total;
+                        //supersonic.ui.navigationBar.update({'title': "В чате: " + resp.total});
                     });
                 });
             })
@@ -197,27 +205,58 @@ app.controller('MessageListController', function($scope, $rootScope, $http, $tim
 
     $scope.getPosition = function(callback) {
         var coords = {};
-        navigator.geolocation.getCurrentPosition(function(position) {
+        supersonic.device.geolocation.getPosition().then(function(position, err) {
+          console.log(position, err);
             coords['lat'] = position.coords.latitude;
             coords['lon'] = position.coords.longitude;
             callback(coords);
         });
     };
 
-    $scope.refresh();
-    getPath();
-    $scope.getUid(function() {
-        //$scope.getMessages();
-        $timeout(function syncMessagesTask(){
-            $scope.getMessages();
-            $scope.refresh();
-            $timeout(syncMessagesTask, INTERVALS.SYNC_MESSAGES);
-        }, INTERVALS.SYNC_MESSAGES);
+    var checkLocation = function(cb) {
+      cordova.plugins.diagnostic.isLocationEnabled(function(enabled){
+          cb(enabled);
+      }, function(error){
+          console.error("The following error occurred: "+error);
+          cb(false);
+      });
+    }
 
-        $timeout(function syncPositionTask() {
-            $scope.postPosition();
-            $timeout(syncPositionTask, INTERVALS.SYNC_POSITION);
-        }, INTERVALS.SYNC_POSITION);
+    var checkLocationLoop = function() {
+      checkLocation(function(enabled) {
+        if (!enabled) {
+          var options = {
+            message: "Включите определение местоположения",
+            buttonLabel: "Проверить"
+          };
+
+          supersonic.ui.dialog.alert("Ошибка конфигурации", options).then(function() {
+            $timeout(checkLocationLoop, 1000);
+          });
+        } else {
+          $scope.refresh();
+          $scope.getUid(function() {
+              //$scope.getMessages();
+              $timeout(function syncMessagesTask(){
+                  $scope.getMessages();
+                  $scope.refresh();
+                  $timeout(syncMessagesTask, INTERVALS.SYNC_MESSAGES);
+              }, INTERVALS.SYNC_MESSAGES);
+
+              $timeout(function syncPositionTask() {
+                  $scope.postPosition();
+                  $timeout(syncPositionTask, INTERVALS.SYNC_POSITION);
+              }, INTERVALS.SYNC_POSITION);
+          });
+        }
+      });
+    }
+
+    supersonic.device.ready.then(function() {
+
+      checkLocationLoop();
+
     });
+
 
 });
