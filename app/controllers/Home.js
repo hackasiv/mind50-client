@@ -7,32 +7,14 @@ var INTERVALS  = {
   SYNC_POSITION: 5000,
 };
 
-var app = angular.module('mind50App', [
-    //'ngResource'
-]);
+var app = angular.module('mind50App', []);
 
 
 var API_URL = 'http://api.crimeadev.com';
 
 $(document).ready(function() {
-    //document.ontouchmove = function(e){
-    //    e.preventDefault();
-    //};
-    //$('.page-wrap').height($('body').height());
     moment.locale('ru');
 });
-//supersonic.device.ready.then(function() {
-  // supersonic.device.geolocation.watchPosition().onValue(function(position) {
-  //   supersonic.logger.log(
-  //     """
-  //     Latitude: #{position.coords.latitude}
-  //     Longitude: #{position.coords.longitude}
-  //     Timestamp: #{position.timestamp}
-  //     """
-  //   )
-  //   supersonic.ui.navigationBar.update({'title': position.coords});
-  // });
-//});
 
 app.filter('relative', function() {
    return function(input) {
@@ -43,7 +25,6 @@ app.filter('relative', function() {
 });
 
 app.controller('AppController', function($scope, $rootScope) {});
-
 
 app.controller('MessageSendController', function($scope, $rootScope) {
 
@@ -188,18 +169,33 @@ app.controller('MessageListController', function($scope, $rootScope, $http, $tim
 
     $scope.postPosition = function() {
         $scope.getUid(function(){
-            $scope.getPosition(function(coords){
-                $rootScope.coords = coords;
-                var lat = coords['lat'];
-                var lon = coords['lon'];
-                $.post(API_URL + '/position', {uid: $rootScope.uid, lat: lat, lon: lon}).success(function(resp){
-                    resp = JSON.parse(resp);
-                    $rootScope.$apply(function() {
-                        $rootScope.total = resp.total;
-                        //supersonic.ui.navigationBar.update({'title': "В чате: " + resp.total});
-                    });
-                });
-            })
+          checkLocation(function(enabled) {
+            console.log(enabled, 'en');
+            if (!enabled && !$scope.alert) {
+              var options = {
+                message: "Включите определение местоположения",
+                buttonLabel: "Проверить"
+              };
+              $scope.alert = supersonic.ui.dialog.alert("Ошибка конфигурации", options).then(function() {
+                $scope.alert = null;
+                //$timeout(checkLocationLoop, 1000);
+              });
+            } else {
+              $scope.getPosition(function(coords){
+                  $rootScope.coords = coords;
+                  var lat = coords['lat'];
+                  var lon = coords['lon'];
+                  $.post(API_URL + '/position', {uid: $rootScope.uid, lat: lat, lon: lon}).success(function(resp){
+                      resp = JSON.parse(resp);
+                      $rootScope.$apply(function() {
+                          $rootScope.total = resp.total;
+                          //supersonic.ui.navigationBar.update({'title': "В чате: " + resp.total});
+                      });
+                  });
+              });
+            }
+          })
+
         });
     };
 
@@ -214,12 +210,17 @@ app.controller('MessageListController', function($scope, $rootScope, $http, $tim
     };
 
     var checkLocation = function(cb) {
-      cordova.plugins.diagnostic.isLocationEnabled(function(enabled){
-          cb(enabled);
-      }, function(error){
-          console.error("The following error occurred: "+error);
-          cb(false);
-      });
+      console.log(cordova.plugins);
+      if (cordova && cordova.plugins && cordova.plugins.diagnostic) {
+        cordova.plugins.diagnostic.isLocationEnabled(function(enabled){
+            cb(enabled);
+        }, function(error){
+            console.error("The following error occurred: "+error);
+            cb(false);
+        });
+      } else {
+        cb(true);
+      }
     }
 
     var checkLocationLoop = function() {
@@ -253,9 +254,8 @@ app.controller('MessageListController', function($scope, $rootScope, $http, $tim
     }
 
     supersonic.device.ready.then(function() {
-
+      console.log(cordova.plugins, 'cordova.plugins');
       checkLocationLoop();
-
     });
 
 

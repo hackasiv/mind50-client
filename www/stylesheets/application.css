@@ -158,6 +158,7 @@ background-image: -webkit-gradient(
   font-style: italic;
   padding-bottom: 0;
   margin: 0;
+  white-space: nowrap;
 }
 
 img.avatar60 {
