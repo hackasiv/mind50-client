@@ -18,6 +18,7 @@
     "steroids-data": "~0.8.4",
     "supersonic": "1.x",
     "mobile-angular-ui": "~1.2.0-beta.11",
-    "moment": "~2.10.6"
+    "moment": "~2.10.6",
+    "angular-websocket": "~1.0.13"
   }
 }

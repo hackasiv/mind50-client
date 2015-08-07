@@ -2,7 +2,7 @@
 
   <button class="button button-icon icon super-ios-people"> {{ total }}</button>
   <div class="h1 title">Mind50</div>
-  <button class="button button-icon icon super-ios-person crop"> {{ name }}</button>
+  <button class="button button-icon icon super-ios-person crop"> {{ user.nick }}</button>
 
 </div>
 
@@ -13,27 +13,27 @@
 <div class="padding">
   <div class="list" id="message-list" ng-controller="MessageListController">
     <div class="row" href="#" ng-repeat="msg in messages">
-      <div class="col" ng-show="msg.uid==uid">
-        <div class="nick" ng-class="{right: msg.uid==uid}">
-          {{ msg.nick }}
+      <div class="col" ng-show="msg.user._id==user._id">
+        <div class="nick" ng-class="{right: msg.user._id==user._id}">
+          {{ msg.user._nick }}
         </div>
         <div class="bubble bubble--alt">
           <span>{{ msg.message }}</span>
 
-          <time>{{ msg.time|relative }}</time>
+          <time>{{ msg.created_time|relative }}</time>
         </div>
       </div>
       <div class="col-30 avatar-box">
-        <img ng-src="https://robohash.org/{{msg.nick}}-mind50" class="avatar60">
+        <img ng-src="https://robohash.org/{{msg.user._nick}}-mind50" class="avatar60">
       </div>
-      <div class="col"  ng-hide="msg.uid==uid">
+      <div class="col"  ng-hide="msg.user._id==user._id">
         <div class="nick">
-          {{ msg.nick }}
+          {{ msg.user._nick }}
         </div>
         <div class="bubble">
           <span>{{ msg.message }}</span>
 
-          <time>{{ msg.time|relative }}</time>
+          <time>{{ msg.created_time|relative }}</time>
         </div>
       </div>
     </div>
